@@ -1,15 +1,13 @@
 // src/components/InvoiceForm.js
-import React, { useRef } from 'react';
+import React from 'react';
 import ItemRow from './ItemRow';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 import { useSettings } from '../context/SettingsContext';
-import SignaturePad from 'react-signature-canvas';
-
+import SignatureCapture from './SignaturePad';
 
 function InvoiceForm({ invoiceData, setInvoiceData }) {
   const { settings } = useSettings();
-  const sigCanvasRef = useRef(null);
 
   const handleClientChange = (e) => {
     const { name, value } = e.target;
@@ -41,19 +39,6 @@ function InvoiceForm({ invoiceData, setInvoiceData }) {
     const updatedItems = [...invoiceData.items];
     updatedItems.splice(index, 1);
     setInvoiceData((prev) => ({ ...prev, items: updatedItems }));
-  };
-
-  const handleClearSignature = () => {
-    sigCanvasRef.current?.clear();
-    setInvoiceData((prev) => ({ ...prev, signatureImageBase64: '' }));
-  };
-
-  const handleSaveSignature = () => {
-    const sigCanvas = sigCanvasRef.current;
-    if (sigCanvas && !sigCanvas.isEmpty()) {
-      const base64 = sigCanvas.getTrimmedCanvas().toDataURL('image/png');
-      setInvoiceData((prev) => ({ ...prev, signatureImageBase64: base64 }));
-    }
   };
 
   return (
@@ -201,19 +186,11 @@ function InvoiceForm({ invoiceData, setInvoiceData }) {
         </Form.Group>
 
         <Form.Group className="mb-4" controlId="signaturePad">
-          <Form.Label>✍️ Signature Pad</Form.Label>
-          <div className="border p-2 rounded bg-light">
-            <SignaturePad
-              ref={sigCanvasRef}
-              canvasProps={{ width: 400, height: 150, className: 'signature-canvas' }}
-            />
-            <div className="mt-2 d-flex gap-2">
-              <Button variant="outline-secondary" onClick={handleClearSignature}>Clear</Button>
-              <Button variant="outline-primary" onClick={handleSaveSignature}>Save Signature</Button>
-            </div>
-          </div>
+          <Form.Label>✍️ Digital Signature</Form.Label>
+          <SignatureCapture
+            onSave={(dataUrl) => setInvoiceData((prev) => ({ ...prev, signatureImageBase64: dataUrl }))}
+          />
         </Form.Group>
-
       </Form>
     </div>
   );
