@@ -1,9 +1,9 @@
 // ✅ src/App.js
 import React, { Suspense, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // Changed here ✅
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/app.css';
-import './styles/DashboardEnhancements.css'; // optional for fade-in + theme
+import './styles/DashboardEnhancements.css';
 import InvoicePayment from './components/InvoicePayment';
 import { SettingsProvider, useSettings } from './context/SettingsContext';
 import { ToastContainer } from 'react-toastify';
