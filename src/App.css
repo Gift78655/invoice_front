@@ -1,38 +1,177 @@
-.App {
-  text-align: center;
+/* === GLOBAL RESET === */
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1, h2, h4, h5 {
+  color: #343a40;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+input, textarea {
+  font-size: 0.95rem;
 }
 
-.App-header {
-  background-color: #282c34;
+.table td, .table th {
+  vertical-align: middle;
+}
+
+/* === MAIN STRUCTURE === */
+.dashboard-wrapper {
+  display: flex;
   min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  overflow-y: auto;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+  width: 220px;
+  background-color: #212529;
+  color: white;
+  padding: 1.5rem 1rem;
+  border-right: 1px solid #dee2e6;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
 }
 
-.App-link {
-  color: #61dafb;
+.sidebar h5 {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.sidebar .nav-link {
+  color: #adb5bd;
+  font-size: 1rem;
+  margin: 0.3rem 0;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.sidebar .nav-link.active {
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: bold;
+  border-left: 5px solid #0d6efd;
+  border-radius: 0.375rem 0 0 0.375rem;
+}
+
+/* === FORM + PREVIEW SECTIONS === */
+.invoice-form,
+.invoice-preview {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* === TABLES === */
+.table-hover tbody tr:hover {
+  background-color: #f1f3f5;
+}
+
+.table-borderless th,
+.table-borderless td {
+  border: none !important;
+}
+
+thead th {
+  background-color: #f8f9fa;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* === BUTTONS === */
+.btn-sm {
+  font-size: 0.875rem;
+}
+
+.btn-outline-danger,
+.btn-outline-primary,
+.btn-outline-dark,
+.btn-outline-success {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.btn-hover-scale:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s ease;
+}
+
+.btn {
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* === UTILITIES === */
+.container-fluid {
+  padding: 2rem;
+}
+
+.text-muted-sm {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.rounded-card {
+  border-radius: 12px;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.03);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 992px) {
+  .dashboard-wrapper {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+
+  .sidebar {
+    position: relative;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1rem;
   }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .invoice-form,
+  .invoice-preview {
+    padding: 1rem;
+  }
+}
+
+.app-footer {
+  font-size: 0.875rem;
+  color: #6c757d;
+  border-top: 1px solid #dee2e6;
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+
+/* === REMOVE DEFAULT CREATE-REACT-APP STYLES === */
+.App, .App-header, .App-logo, .App-link {
+  all: unset;
 }
