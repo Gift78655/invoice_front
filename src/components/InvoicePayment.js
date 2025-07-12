@@ -1,8 +1,9 @@
-// src/components/InvoicePayment.js
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Alert } from 'react-bootstrap';
 import { useSettings } from '../context/SettingsContext';
+
+const BACKEND_URL = process.env.REACT_APP_API_URL || 'https://invoice-backend-flsi.onrender.com';
 
 function InvoicePayment() {
   const { invoiceNumber } = useParams();
@@ -11,9 +12,18 @@ function InvoicePayment() {
   const { settings } = useSettings();
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem('invoices') || '[]');
-    const found = stored.find((inv) => inv.invoiceNumber === invoiceNumber);
-    setInvoice(found);
+    // Fetch invoice from backend API
+    fetch(`${BACKEND_URL}/api/invoice/${invoiceNumber}`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Invoice not found');
+        return res.json();
+      })
+      .then((data) => {
+        setInvoice({ ...data, invoiceNumber }); // attach number if missing
+      })
+      .catch(() => {
+        setInvoice(null);
+      });
   }, [invoiceNumber]);
 
   const handleConfirmPayment = () => {
@@ -89,3 +99,4 @@ function InvoicePayment() {
 }
 
 export default InvoicePayment;
+
