@@ -1,3 +1,4 @@
+// ✅ src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -12,7 +13,8 @@ root.render(
   </React.StrictMode>
 );
 
-// ✅ Register service worker for PWA
-serviceWorkerRegistration.register();
+// ❌ Disable service worker for now to prevent 404 error on Render
+serviceWorkerRegistration.unregister();
 
+// Optional: measure performance
 reportWebVitals();
