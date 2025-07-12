@@ -1,22 +1,20 @@
 // ✅ src/App.js
 import React, { Suspense, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // ✅ Use HashRouter
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/app.css';
-import './styles/DashboardEnhancements.css'; // optional for fade-in + theme
+import './styles/DashboardEnhancements.css';
 import InvoicePayment from './components/InvoicePayment';
 import { SettingsProvider, useSettings } from './context/SettingsContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Lazy load major components for performance
 const Dashboard = React.lazy(() => import('./components/Dashboard'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 
 function ThemedApp() {
   const { settings } = useSettings();
 
-  // Optional: auto apply theme class to <body>
   useEffect(() => {
     document.body.className = settings.theme === 'dark' ? 'dark-mode' : '';
   }, [settings.theme]);
@@ -42,7 +40,6 @@ function ThemedApp() {
         </Suspense>
       </Router>
 
-      {/* ✅ Global toast container */}
       <ToastContainer position="top-center" autoClose={3000} hideProgressBar newestOnTop />
     </>
   );
@@ -57,3 +54,4 @@ function App() {
 }
 
 export default App;
+
