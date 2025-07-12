@@ -18,7 +18,7 @@
     "react-dom": "18.3.1",
     "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
-    "react-signature-canvas": "^1.0.3",
+    "react-signature-pad-wrapper": "^4.1.1",
     "react-to-print": "^3.1.1",
     "react-toastify": "^11.0.5",
     "trim-canvas": "^0.1.2",
