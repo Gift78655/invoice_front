@@ -1,3 +1,4 @@
+// src/components/InvoicePreview.js
 import React, { useRef, useState } from 'react';
 import { useSettings } from '../context/SettingsContext';
 import pdfMake from 'pdfmake/build/pdfmake';
@@ -52,7 +53,7 @@ function InvoicePreview({ invoiceData = {} }) {
 
   const exportPDF = async () => {
     try {
-      const qrData = `${window.location.origin}/pay/${invoiceNumber}`;
+      const qrData = `${window.location.origin}/#/pay/${invoiceNumber}`;
       const qrImage = await QRCodeLib.toDataURL(qrData);
 
       const docDefinition = {
@@ -168,7 +169,9 @@ function InvoicePreview({ invoiceData = {} }) {
         body: formData,
       });
 
-      res.ok ? toast.success('✅ Invoice emailed successfully!') : toast.error('❌ Failed to send invoice.');
+      res.ok
+        ? toast.success('✅ Invoice emailed successfully!')
+        : toast.error('❌ Failed to send invoice.');
     } catch (err) {
       console.error('Email error:', err);
       toast.error('❌ Error occurred while sending invoice.');
