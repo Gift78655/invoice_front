@@ -1,11 +1,11 @@
-// src/components/QRCode.js
 import React from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 
 function QRCode({ invoiceData }) {
-  const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:3000';
+  // ✅ Use correct base URL and hash-based routing
+  const baseUrl = process.env.REACT_APP_BASE_URL || 'https://invoice-front-mn5z.onrender.com';
   const invoiceNumber = invoiceData?.invoiceNumber;
-  const link = invoiceNumber ? `${baseUrl}/pay/${invoiceNumber}` : '';
+  const link = invoiceNumber ? `${baseUrl}/#/pay/${invoiceNumber}` : '';
 
   return (
     <div className="text-center mt-4">
