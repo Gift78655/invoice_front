@@ -3,10 +3,12 @@ import React from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 
 function QRCode({ invoiceData }) {
+  // ✅ Use the deployed frontend URL OR default to localhost for development
   const baseUrl = process.env.REACT_APP_FRONTEND_URL || 'https://invoice-front-mn5z.onrender.com';
+
   const invoiceNumber = invoiceData?.invoiceNumber;
 
-  // ✅ Use hash-based routing
+  // ✅ Important: use hash-based routing for Render (/#/ instead of /)
   const link = invoiceNumber ? `${baseUrl}/#/pay/${invoiceNumber}` : '';
 
   return (
