@@ -12,6 +12,7 @@ import QRCodeComponent from './QRCode';
 import '../styles/InvoicePreview.css';
 
 pdfMake.vfs = pdfFonts.default.vfs;
+const BACKEND_URL = process.env.REACT_APP_API_URL || 'https://invoice-backend-flsi.onrender.com';
 
 function InvoicePreview({ invoiceData = {} }) {
   const previewRef = useRef();
@@ -162,7 +163,7 @@ function InvoicePreview({ invoiceData = {} }) {
       formData.append('pdf', blob, `${invoiceNumber}.pdf`);
       formData.append('email', invoiceData.clientEmail);
 
-      const res = await fetch('http://localhost:5000/api/send-invoice', {
+      const res = await fetch(`${BACKEND_URL}/api/send-invoice`, {
         method: 'POST',
         body: formData,
       });
@@ -179,7 +180,6 @@ function InvoicePreview({ invoiceData = {} }) {
   return (
     <div>
       <div ref={previewRef} className="invoice-preview p-3 border rounded mb-3 bg-white card shadow-sm rounded-3">
-        {/* Header */}
         <div className="d-flex justify-content-between align-items-center mb-3">
           <div className="d-flex align-items-center gap-3">
             <img src={settings.logoDataUrl || settings.logoUrl} alt="Logo" style={{ maxHeight: 100 }} />
@@ -199,7 +199,6 @@ function InvoicePreview({ invoiceData = {} }) {
           </div>
         </div>
 
-        {/* Client Info */}
         <div className="mb-3">
           <strong>Client:</strong>
           <p>{invoiceData.clientName || '—'}</p>
@@ -207,7 +206,6 @@ function InvoicePreview({ invoiceData = {} }) {
           <p>{invoiceData.clientAddress || '—'}</p>
         </div>
 
-        {/* Items Table */}
         <table className="table table-hover table-borderless table-sm">
           <thead className="table-light">
             <tr>
@@ -236,7 +234,6 @@ function InvoicePreview({ invoiceData = {} }) {
           </tfoot>
         </table>
 
-        {/* Extras */}
         <div className="mb-3"><em>Total in Words: <strong>{totalInWords} Rand only</strong></em></div>
 
         {invoiceData.notes && (
@@ -261,7 +258,6 @@ function InvoicePreview({ invoiceData = {} }) {
           </div>
         )}
 
-        {/* ✅ Signature Section */}
         {invoiceData.signatureImageBase64 ? (
           <div className="mt-5 d-flex flex-column align-items-start">
             <p className="mb-1">Authorized Signature:</p>
@@ -280,7 +276,6 @@ function InvoicePreview({ invoiceData = {} }) {
         )}
       </div>
 
-      {/* Footer Buttons */}
       <div className="d-flex gap-2">
         <button className="btn light border shadow-sm w-100 btn-hover-scale" onClick={exportPDF}>📥 Download PDF</button>
         <button className="btn light border shadow-sm w-100 btn-hover-scale" onClick={handlePrint}>🖨️ Print Invoice</button>

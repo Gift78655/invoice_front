@@ -16,7 +16,7 @@ const NotFound = React.lazy(() => import('./components/NotFound'));
 function ThemedApp() {
   const { settings } = useSettings();
 
-  // Optional: auto apply theme class to <body>
+  // Auto apply theme class to <body>
   useEffect(() => {
     document.body.className = settings.theme === 'dark' ? 'dark-mode' : '';
   }, [settings.theme]);
@@ -42,7 +42,7 @@ function ThemedApp() {
         </Suspense>
       </Router>
 
-      {/* ✅ Global toast container */}
+      {/* Global toast container */}
       <ToastContainer position="top-center" autoClose={3000} hideProgressBar newestOnTop />
     </>
   );

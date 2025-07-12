@@ -3,7 +3,7 @@ import React from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 
 function QRCode({ invoiceData }) {
-  const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.REACT_APP_FRONTEND_URL || 'https://invoice-front-mn5z.onrender.com';
   const invoiceNumber = invoiceData?.invoiceNumber;
   const link = invoiceNumber ? `${baseUrl}/pay/${invoiceNumber}` : '';
 
