@@ -1,52 +1,35 @@
-/* === FADE ANIMATION === */
+/* src/styles/DashboardEnhancements.css */
+
+/* === SMOOTH PAGE TRANSITIONS === */
 .fade-in {
-  animation: fadeIn 0.4s ease-in;
+  animation: fadeIn 0.32s ease-out;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px);
+    filter: blur(2px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
   }
 }
 
-/* === DARK MODE === */
-.dark-mode {
-  background-color: #121212;
-  color: #f1f1f1;
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.dark-mode .main-content {
-  background-color: #1e1e1e;
-}
-
-.dark-mode .invoice-preview,
-.dark-mode .invoice-form {
-  background-color: #2c2c2c;
-  border-color: #444;
-  color: #f1f1f1;
-}
-
-.dark-mode table {
-  background-color: #2c2c2c;
-  color: #fff;
-}
-
-.dark-mode .table-light {
-  background-color: #343a40;
-  color: #fff;
-}
-
-.dark-mode .sidebar {
-  background-color: #000;
-  color: #fff;
-}
-
-/* === BREADCRUMB ENHANCEMENT === */
+/* === LEGACY BREADCRUMB SUPPORT === */
 .breadcrumb-title {
   animation: slideFadeIn 0.3s ease-out;
   display: flex;
@@ -54,54 +37,339 @@
   gap: 0.5rem;
 }
 
-@keyframes slideFadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* === SIDEBAR COLLAPSE === */
-.sidebar-toggle {
-  display: none;
-  cursor: pointer;
-  font-size: 1.25rem;
-  background: none;
-  border: none;
+.breadcrumb-title .badge,
+.main-content h3 .badge {
+  font-size: 1rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #128246, #0b6334) !important;
   color: #fff;
-  margin-bottom: 1rem;
+  border-radius: 14px;
+  padding: 0.75rem 1.05rem;
+  box-shadow: 0 10px 24px rgba(18, 130, 70, 0.18);
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    position: absolute;
-    z-index: 1000;
-    height: 100vh;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
+/* === GLOBAL CARD POLISH FOR DASHBOARD AREAS === */
+.main-content .card {
+  border-radius: 18px;
+  border: 1px solid var(--border, #dfe8e4);
+}
+
+.main-content .card.shadow-sm,
+.main-content .shadow-sm {
+  box-shadow: 0 14px 35px rgba(18, 32, 27, 0.07) !important;
+}
+
+.main-content .card-body {
+  padding: 1.25rem;
+}
+
+.main-content .badge.bg-success {
+  background: #128246 !important;
+}
+
+.main-content .badge.bg-primary {
+  background: #0d6efd !important;
+}
+
+/* === SAVED INVOICES / TABLE SCANNING === */
+.table {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.table thead th {
+  background: #f3f8f5 !important;
+  color: #17211d;
+  font-weight: 800;
+  border-bottom: 1px solid #dfe8e4;
+}
+
+.table tbody td {
+  color: #27352f;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f8faf9;
+}
+
+/* === FORM ENHANCEMENTS === */
+.form-label {
+  font-weight: 800;
+  color: #27352f;
+  margin-bottom: 0.4rem;
+}
+
+.form-control,
+.form-select {
+  border-color: #d8e3de;
+  border-radius: 10px;
+  min-height: 42px;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #128246;
+  box-shadow: 0 0 0 0.2rem rgba(18, 130, 70, 0.13);
+}
+
+textarea.form-control {
+  min-height: 82px;
+}
+
+/* === BUTTON CONSISTENCY === */
+.btn {
+  border-radius: 10px;
+  font-weight: 800;
+}
+
+.btn-success {
+  background: #128246;
+  border-color: #128246;
+}
+
+.btn-success:hover {
+  background: #0b6334;
+  border-color: #0b6334;
+}
+
+.btn-outline-success {
+  color: #128246;
+  border-color: #128246;
+}
+
+.btn-outline-success:hover {
+  background: #128246;
+  border-color: #128246;
+}
+
+.btn-hover-scale:hover {
+  transform: translateY(-1px) scale(1.01);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 12px 24px rgba(18, 32, 27, 0.1);
+}
+
+/* === SIGNATURE AREA FIX === */
+.invoice-form canvas {
+  width: 100% !important;
+  max-height: 220px !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+}
+
+.invoice-form #signaturePad .bg-light,
+.invoice-form .signature-pad-wrapper,
+.invoice-form .signature-canvas {
+  max-height: 300px;
+  overflow: hidden;
+}
+
+/* === MOBILE FORM READABILITY === */
+@media (max-width: 767.98px) {
+  .main-content .card-body {
+    padding: 0.95rem;
   }
 
-  .sidebar.show {
-    transform: translateX(0);
+  .invoice-form .card {
+    border-radius: 16px;
   }
 
-  .sidebar-toggle {
-    display: inline-block;
+  .invoice-form .card-body > h5,
+  .invoice-form .card-body h5.fw-bold {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .invoice-form .text-muted,
+  .invoice-form .alert,
+  .invoice-form small {
+    font-size: 0.84rem;
+  }
+
+  .invoice-form .row.g-3 {
+    --bs-gutter-y: 0.85rem;
+  }
+
+  .invoice-form .form-label {
+    font-size: 0.82rem;
+  }
+
+  .invoice-form .btn {
+    min-height: 42px;
+  }
+
+  .invoice-form .card-body > .d-flex:first-child {
+    gap: 0.8rem !important;
+  }
+
+  .invoice-form .card-body > .d-flex:first-child .d-flex {
+    max-height: 150px;
+    overflow-y: auto;
+    padding-right: 0.2rem;
+  }
+
+  .invoice-form .card-body > .d-flex:first-child .d-flex::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .invoice-form .card-body > .d-flex:first-child .d-flex::-webkit-scrollbar-thumb {
+    background: #cbd9d3;
+    border-radius: 999px;
+  }
+
+  .invoice-form .card-body > .d-flex:first-child .btn {
+    flex: 1 1 calc(50% - 0.4rem);
+    font-size: 0.78rem;
+    padding-inline: 0.5rem;
+  }
+
+  .invoice-form .alert {
+    border-radius: 14px;
+  }
+
+  .invoice-form canvas {
+    max-height: 180px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .invoice-form .card-body {
+    padding: 0.85rem;
+  }
+
+  .invoice-form .card-body > .d-flex:first-child .btn {
+    flex-basis: 100%;
+  }
+
+  .invoice-form .badge {
+    font-size: 0.7rem;
+  }
+
+  .invoice-form .alert {
+    padding: 0.75rem;
+  }
+}
+
+/* === MOBILE TABLE SAFETY === */
+@media (max-width: 767.98px) {
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table {
+    min-width: 840px;
+  }
+
+  .table td,
+  .table th {
+    white-space: nowrap;
+  }
+
+  .table td:nth-child(3),
+  .table td:nth-child(4) {
+    white-space: normal;
+    min-width: 180px;
+  }
+}
+
+/* === DARK MODE === */
+.dark-mode {
+  background-color: #101512;
+  color: #f1f5f3;
+}
+
+.dark-mode .main-content {
+  background:
+    radial-gradient(circle at top right, rgba(18, 130, 70, 0.1), transparent 30%),
+    #101512;
+}
+
+.dark-mode .invoice-preview,
+.dark-mode .invoice-form,
+.dark-mode .card,
+.dark-mode .table,
+.dark-mode .modal-content {
+  background-color: #1d241f !important;
+  border-color: #34423a !important;
+  color: #f1f5f3 !important;
+}
+
+.dark-mode .card-body,
+.dark-mode .bg-white {
+  background-color: #1d241f !important;
+  color: #f1f5f3 !important;
+}
+
+.dark-mode .bg-light,
+.dark-mode .table-light,
+.dark-mode thead th,
+.dark-mode .form-control,
+.dark-mode .form-select {
+  background-color: #26302a !important;
+  color: #f1f5f3 !important;
+  border-color: #3b4a42 !important;
+}
+
+.dark-mode .form-control::placeholder {
+  color: #9ca9a2;
+}
+
+.dark-mode .form-label,
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode h5,
+.dark-mode h6 {
+  color: #ffffff !important;
+}
+
+.dark-mode .text-muted,
+.dark-mode .form-text {
+  color: #aab7b0 !important;
+}
+
+.dark-mode table {
+  background-color: #1d241f;
+  color: #f1f5f3;
+}
+
+.dark-mode .table tbody td {
+  color: #e5ece8;
+}
+
+.dark-mode .table-hover tbody tr:hover {
+  background-color: #26302a;
+}
+
+.dark-mode .app-footer {
+  color: #aab7b0;
+  border-top-color: #34423a;
+}
+
+/* === PRINT SAFETY === */
+@media print {
+  .dashboard-mobile-header,
+  .dashboard-bottom-nav,
+  .dashboard-sidebar-wrap,
+  .dashboard-page-header,
+  .app-footer,
+  .preview-actions {
+    display: none !important;
   }
 
   .main-content {
-    padding-top: 4rem;
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 0 !important;
+    background: #ffffff !important;
   }
-}
 
-/* === BADGE IN TITLE === */
-.breadcrumb-title .badge {
-  font-size: 0.75rem;
-  font-weight: 500;
-  background: #0d6efd;
-  color: #fff;
+  .dashboard-content {
+    max-width: none !important;
+  }
 }
